@@ -1,0 +1,74 @@
+{% load staticfiles %}
+<html>
+    <head>
+         <meta charset="UTF-8">
+        <style>
+            @page { size: A5;
+                margin-left: 1.5cm;
+            margin-right: 1.5cm;
+            margin-top: 5.5cm;
+            margin-bottom: 2cm;
+            }
+            li {
+                font-size: 15px;
+            }
+            p {
+                font-size: 15pt;
+                font-family: "Lato", "Helvetica", "sans-serif";
+                margin-bottom: 10px;
+                text-decoration: underline;
+            }
+            p.note {
+                border: 3px double black;
+                padding: 10px;
+                margin-top: 50px;
+                text-decoration: none;
+                font-size: 15px;
+            }
+            p.date {
+                margin-bottom: 50px;
+                padding: 0;
+                font-size: 12px;
+                text-decoration: none;
+                font-weight: bold;
+                margin-left: 7cm;
+            }
+            p.name {
+                margin-left: 7cm;
+            }
+            p.pre {
+                padding: 0;
+                font-size: 14px;
+                text-decoration: none;
+                font-weight: bold;
+                margin-top: -10px;
+            }
+
+
+        </style>
+    </head>
+    <body>
+        <div>
+           <p class="name"><i>{{ name }}</i></p>
+        <p class="date"><i>{{ date|date:"d M, Y" }}</i></p>
+        </div>
+
+
+        {% if meds %}
+            <ul>
+                {% for med in meds %}
+                    <li>{{ med.nom }} {% if med.dosage %}
+                    {{ med.dosage }}
+                    {% endif %}
+
+                    {% if med.forme %}({{ med.forme }}{% if med.presentation %} - {{ med.presentation }}{% endif %}) {% elif med.presentation %} ({{ med.presentation }}){% endif %}</h1>
+                    </li><p class="pre">{{ med.prescription }}</p>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+            {% if note %}
+            <p class="note"><strong>Note:</strong> {{ note }}</p>
+            {% endif %}
+    </body>
+</html>
